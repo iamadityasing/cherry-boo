@@ -1,0 +1,11 @@
+# Windows / macOS junk that should never reach the published site.
+Thumbs.db
+ehthumbs.db
+.DS_Store
+desktop.ini
+
+# Editor / tool scratch
+*.log
+*.tmp
+.vscode/
+.idea/

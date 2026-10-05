@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cherry Boo</title>
+<meta name="description" content="artwork, cute, adorable">
+<meta name="theme-color" content="#14100c">
+<meta property="og:title" content="Cherry Boo">
+<meta property="og:description" content="artwork, cute, adorable">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="css/site.css?v=39">
+<link rel="stylesheet" href="css/threeui.css?v=39">
+</head>
+<body>
+
+<main class="page">
+
+  <!--
+    ThreeUI Generative Tree, full-bleed background. Mounted by
+    js/threeui-generative-tree.js at the configured props and painted at
+    z-index:-1 inside this stacking context, so it sits behind every piece
+    of page content without intercepting the poster, its zones or the
+    page copy. aria-hidden, and the component hides the iframe from
+    assistive tech itself.
+  -->
+  <div class="shader-frame" aria-hidden="true"></div>
+
+  <header class="top">
+    <span class="name">Cherry Boo</span>
+  </header>
+
+  <!--
+    POSTER PHOTOS: assets/sketchbook/page-01.jpg to page-25.jpg
+    Captions are placeholders; send me the real ones and I'll drop them in.
+  -->
+  <script type="application/json" id="sketchbook-data">
+    [
+      { "src": "assets/sketchbook/page-01.jpg?v=39", "title": "Poster 01" },
+      { "src": "assets/sketchbook/page-02.jpg?v=39", "title": "Poster 02" },
+      { "src": "assets/sketchbook/page-03.jpg?v=39", "title": "Poster 03" },
+      { "src": "assets/sketchbook/page-04.jpg?v=39", "title": "Poster 04" },
+      { "src": "assets/sketchbook/page-05.jpg?v=39", "title": "Poster 05" },
+      { "src": "assets/sketchbook/page-06.jpg?v=39", "title": "Poster 06" },
+      { "src": "assets/sketchbook/page-07.jpg?v=39", "title": "Poster 07" },
+      { "src": "assets/sketchbook/page-08.jpg?v=39", "title": "Poster 08" },
+      { "src": "assets/sketchbook/page-09.jpg?v=39", "title": "Poster 09" },
+      { "src": "assets/sketchbook/page-10.jpg?v=39", "title": "Poster 10" },
+      { "src": "assets/sketchbook/page-11.jpg?v=39", "title": "Poster 11" },
+      { "src": "assets/sketchbook/page-12.jpg?v=39", "title": "Poster 12" },
+      { "src": "assets/sketchbook/page-13.jpg?v=39", "title": "Poster 13" },
+      { "src": "assets/sketchbook/page-14.jpg?v=39", "title": "Poster 14" },
+      { "src": "assets/sketchbook/page-15.jpg?v=39", "title": "Poster 15" },
+      { "src": "assets/sketchbook/page-16.jpg?v=39", "title": "Poster 16" },
+      { "src": "assets/sketchbook/page-17.jpg?v=39", "title": "Poster 17" },
+      { "src": "assets/sketchbook/page-18.jpg?v=39", "title": "Poster 18" },
+      { "src": "assets/sketchbook/page-19.jpg?v=39", "title": "Poster 19" },
+      { "src": "assets/sketchbook/page-20.jpg?v=39", "title": "Poster 20" },
+      { "src": "assets/sketchbook/page-21.jpg?v=39", "title": "Poster 21" },
+      { "src": "assets/sketchbook/page-22.jpg?v=39", "title": "Poster 22" },
+      { "src": "assets/sketchbook/page-23.jpg?v=39", "title": "Poster 23" },
+      { "src": "assets/sketchbook/page-24.jpg?v=39", "title": "Poster 24" },
+      { "src": "assets/sketchbook/page-25.jpg?v=39", "title": "Poster 25" }
+    ]
+  </script>
+
+  <section class="hero">
+    <p class="hero-kicker">ARTWORK / CUTE / ADORABLE</p>
+    <h1 class="hero-name">i love you cherry boo</h1>
+
+    <div class="sb-wrap">
+      <!-- motion-blur filters for the intro riffle -->
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <filter id="sb-mblur-1"><feGaussianBlur stdDeviation="5 0"></feGaussianBlur></filter>
+        <filter id="sb-mblur-2"><feGaussianBlur stdDeviation="14 0"></feGaussianBlur></filter>
+      </svg>
+
+      <div class="sb-stage">
+        <button class="sb-arrow left" aria-label="previous page">
+          <svg viewBox="0 0 14 44" width="14" height="44" fill="none" aria-hidden="true"><polyline points="11,3 3,22 11,41" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="sb-book" style="aspect-ratio: 3 / 4">
+          <div class="sb-full">
+            <img alt="Poster 01" draggable="false" src="assets/sketchbook/page-01.jpg">
+          </div>
+          <!--
+            Decorative depth for the book: page edges, a warm rim along the
+            top, and a pool of light underneath. It lives INSIDE .sb-book so
+            it inherits the real box on every viewport (the book is height-
+            capped on short screens and arrow-relative on mobile, so a
+            sibling sized in --book-h would drift out of register).
+
+            It is a plain child the sketchbook never touches: mountTurn only
+            inserts its own group before the .sb-zone buttons, and unmount
+            removes that group alone. z-index 1 keeps it above the artwork
+            but below .sb-flap (5), so the folding page still passes over it.
+          -->
+          <div class="sb-depth" aria-hidden="true"></div>
+          <button class="sb-zone sb-prev" tabindex="-1" aria-hidden="true"></button>
+          <button class="sb-zone sb-next" tabindex="-1" aria-hidden="true"></button>
+        </div>
+
+        <button class="sb-arrow right" aria-label="next page">
+          <svg viewBox="0 0 14 44" width="14" height="44" fill="none" aria-hidden="true"><polyline points="3,3 11,22 3,41" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <!--
+        The expand control shares the caption's row rather than getting a
+        row of its own. The hero is height-tight (it is exactly one screen
+        with no scrollbar down to 1280x560), so any extra line of chrome
+        here risks a scrollbar, and a scrollbar is a worse problem than a
+        discoverability nudge.
+      -->
+      <div class="sb-meta">
+        <div class="sb-captions">
+          <p class="sb-caption">Poster 01</p>
+        </div>
+
+        <button class="sb-expand" type="button" aria-label="View this poster full size">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" aria-hidden="true" focusable="false">
+            <path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- progress dots, built by js/site.js so they follow the page count -->
+      <div class="sb-dots" role="group" aria-label="Jump to a poster"></div>
+    </div>
+
+    <p class="hero-quote">&ldquo;in every version of the future I imagined, you were already in it.&rdquo;</p>
+  </section>
+
+  <!--
+    MUSIC PLAYER, bottom left.
+
+    One song: "O Rangrez" (Bhaag Milkha Bhaag), video id jmpUP1MaQ9Q. The
+    source link carried a radio playlist (list=RD...&start_radio=1); it is
+    deliberately dropped so the player is that one video and cannot roll
+    on into anything else.
+
+    Audio comes from the YouTube IFrame Player API, whose iframe js/site.js
+    injects on the first play click. Nothing third-party is fetched at page
+    load, which keeps first paint fast -- and creating the player inside
+    that click is what lets it start with sound, since browsers only allow
+    audible autoplay from a user gesture.
+
+    The iframe itself is audio-only: it is a 1x1, almost transparent
+    element. It must not be display:none or opacity:0 -- Chrome throttles
+    or suspends hidden frames, which pauses the audio. The button, the two
+    time readouts and the seek bar are all built here instead of using the
+    native YouTube controls, so the player matches the page.
+  -->
+  <div class="np" data-video-id="jmpUP1MaQ9Q"
+       data-video-url="https://www.youtube.com/watch?v=jmpUP1MaQ9Q">
+    <button class="np-btn" type="button" aria-label="Play O Rangrez" aria-pressed="false">
+      <svg class="np-ico np-ico-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M8.2 5.1 19 12 8.2 18.9z"/>
+      </svg>
+      <svg class="np-ico np-ico-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M7.5 5h3.2v14H7.5zM13.3 5h3.2v14h-3.2z"/>
+      </svg>
+      <span class="np-spin" aria-hidden="true"></span>
+    </button>
+
+    <div class="np-body">
+      <p class="np-meta">
+        <span class="np-title">O Rangrez</span>
+        <span class="np-artist">Shreya Ghoshal &middot; Javed Bashir</span>
+      </p>
+      <div class="np-bar">
+        <span class="np-time np-cur">0:00</span>
+        <label class="np-seek-wrap">
+          <span class="np-sr">Seek</span>
+          <input class="np-seek" type="range" min="0" max="1000" value="0" step="1"
+                 aria-label="Seek within the song">
+        </label>
+        <span class="np-time np-dur">0:00</span>
+      </div>
+      <p class="np-note" role="status" aria-live="polite"></p>
+    </div>
+
+    <!-- the YouTube iframe is created in here by js/site.js -->
+    <div class="np-frame" aria-hidden="true"></div>
+  </div>
+
+</main>
+
+<!--
+  ARTWORK VIEWER. The posters render at min(52svh, 500px), which is a
+  reasonable size for flipping through and a useless one for actually
+  looking at the work. This opens one poster full size, with arrow-key
+  navigation across the whole deck.
+
+  It drives the sketchbook rather than duplicating it: every move here
+  tells the deck which poster is showing, so the flip and the palette run
+  in sync behind the scrim, and closing leaves the deck on the poster you
+  were last looking at.
+
+  Built by js/site.js (mountArtworkViewer) and hidden until asked for.
+-->
+<div class="lb" role="dialog" aria-modal="true" aria-labelledby="lb-title" hidden>
+  <div class="lb-scrim" data-lb-close></div>
+
+  <button class="lb-nav lb-prev" type="button" aria-label="Previous poster">
+    <svg viewBox="0 0 14 44" width="15" height="44" fill="none" aria-hidden="true" focusable="false"><polyline points="11,3 3,22 11,41" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <button class="lb-nav lb-next" type="button" aria-label="Next poster">
+    <svg viewBox="0 0 14 44" width="15" height="44" fill="none" aria-hidden="true" focusable="false"><polyline points="3,3 11,22 3,41" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <figure class="lb-figure">
+    <img class="lb-img" alt="">
+    <figcaption class="lb-cap">
+      <span class="lb-title" id="lb-title"></span>
+      <span class="lb-count"></span>
+    </figcaption>
+  </figure>
+
+  <button class="lb-close" type="button" aria-label="Close the artwork viewer" data-lb-close>
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<!--
+  ThreeUI Generative Tree background. threeui-generative-tree-source.js
+  carries the canonical source document byte-for-byte (sha256 verified);
+  threeui-generative-tree.js applies the same transforms the published
+  component applies. node tools/verify-threeui.mjs proves the result is
+  identical to the real component's output.
+-->
+<script src="js/threeui-generative-tree-source.js?v=39"></script>
+<script src="js/threeui-generative-tree.js?v=39"></script>
+<script src="js/site.js?v=39"></script>
+</body>
+</html>

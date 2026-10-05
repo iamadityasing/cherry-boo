@@ -1,0 +1,110 @@
+/* =====================================================================
+   threeui.css
+
+   Component CSS from @designcodeio/threeui (lib-dist/style.css), copied
+   verbatim for the selectors that can apply to GenerativeTree. Kept in its
+   own file so the vendored component styles stay separable from site.css.
+
+   Only the .threeui-background rules are relevant here: the tree renders
+   into an iframe, not a child <canvas>, and the other variant classes
+   (.condensation, .gallery, .predictive-arc--light, ...) are unused.
+   ===================================================================== */
+
+.threeui-mount,
+.text-path-study,
+.article-headings-component,
+.animated-top-dock-component,
+.typography-vortex-component,
+.landscape-scene,
+.japanese-tower-landscape,
+.liquid-metal-button,
+.spark-badge,
+.threeui-background {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.threeui-background {
+  position: relative;
+  isolation: isolate;
+  background: #030304;
+}
+
+/* =====================================================================
+   INTEGRATION — not part of the package. Placement only.
+
+   The tree is mounted as a full-bleed background layer inside main.page.
+
+   Sizing. The canopy is always ~0.72 x the canvas HEIGHT and always
+   centred horizontally, so the ONLY lever for width is the canvas
+   height. To make the canopy span W% of the page width:
+
+       canvas height  =  W% x 100 / 72  x  100vw
+   85% of the width therefore needs 118vw, and the tree -- which is
+   ~0.875 x the canvas, i.e. ~103vw -- is far taller than any landscape
+   viewport. The whole tree cannot fit at that size.
+
+   The fix is WHICH end gets cropped. The tree's crown occupies roughly
+   the 12%..78% band of its own height (~0.58 x the canvas), so:
+
+     - anchoring the canvas BOTTOM crops the crown, and the crown is
+       where all the branches are. That is what made the page look
+       like an empty black field. Bad.
+     - anchoring the canvas TOP keeps the crown in frame and lets only
+       the lower trunk run off the bottom, which reads naturally, as if
+       the tree continues below the fold. Good.
+
+   The offset is set from the render, not from that model. Driving
+   MAX_DEPTH to 11 makes the tree taller, and pulling the layer down to
+   -0.11 to chase that overshot the other way: the crown then started at
+   y=204 instead of the top edge, leaving a bare band above the tree, and
+   the widest point fell to the bottom of the viewport. -0.23 is the
+   value the render wants -- the crown reaches the top edge and its
+   widest point lands beside the poster.
+
+   min() caps the canvas at 233vh. The canopy is widest about 39% down
+   the canvas, so a canvas of X px puts the widest branches at 0.394X;
+   capping X at 2.34vh keeps that above the fold even on very short
+   viewports, where an uncapped 118vw would push the whole canopy below
+   the bottom edge. On anything from phone to 16:9 to ultrawide that cap
+   never binds and the canopy is a true 85% of the page width.
+
+   main.page is a stacking context (position:relative + z-index:1), so
+   z-index:-1 paints the tree above the page background but below every
+   piece of page content: the poster, its zones, the arrows, the captions
+   and the page copy all keep full hit-testing and stay selectable.
+
+   The layer deliberately never takes the mouse: .hero is an in-flow block
+   covering the viewport, so it wins the hit test everywhere and no click
+   can reach the tree by accident. Its own wind sway still runs; only the
+   component's pointer wind/shake are unavailable.
+   ===================================================================== */
+.page > .shader-frame {
+  --tree-h: min(118vw, 233vh);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(var(--tree-h) * -0.23);
+  width: 100%;
+  height: var(--tree-h);
+  z-index: -1;
+}
+
+/* The tree's colour is a CSS filter on the iframe, set inline by the
+   component port. Transitioning it lets the canopy drift to the active
+   poster's palette instead of snapping.
+
+   The selector is a descendant, not a child: the port inserts the iframe
+   inside its own `div.threeui-background` wrapper, so it is a grandchild
+   of `.shader-frame`. Matching on `.shader-frame iframe` also survives
+   the port changing how it nests things. */
+.shader-frame iframe {
+  transition: filter 1200ms cubic-bezier(.4, 0, .2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .shader-frame iframe { transition: none; }
+}
