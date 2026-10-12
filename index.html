@@ -134,31 +134,10 @@
       <div class="sb-dots" role="group" aria-label="Jump to a poster"></div>
     </div>
 
-    <p class="hero-quote">“find me when your family hurts you. find me when your friends let you down. find me when the world feels too heavy to carry alone. when your heart feels like its breaking, when you are exhausted from being strong, when the silence gets loud and no one hears you, find me, I may not be able to fix everything, but i promise you wont face it alone, i will sit with you in the dark, remind you of your light, and stay until your smile slowly finds its way back. you are never a burden to me. never.”</p>
-  </section>
+    <p class="np-quote">“find me when your family hurts you. find me when your friends let you down. find me when the world feels too heavy to carry alone. when your heart feels like its breaking, when you are exhausted from being strong, when the silence gets loud and no one hears you, find me, I may not be able to fix everything, but i promise you wont face it alone, i will sit with you in the dark, remind you of your light, and stay until your smile slowly finds its way back. you are never a burden to me. never.”</p>
 
-  <!--
-    MUSIC PLAYER, bottom left.
-
-    One song: "O Rangrez" (Bhaag Milkha Bhaag), video id jmpUP1MaQ9Q. The
-    source link carried a radio playlist (list=RD...&start_radio=1); it is
-    deliberately dropped so the player is that one video and cannot roll
-    on into anything else.
-
-    Audio comes from the YouTube IFrame Player API, whose iframe js/site.js
-    injects on the first play click. Nothing third-party is fetched at page
-    load, which keeps first paint fast -- and creating the player inside
-    that click is what lets it start with sound, since browsers only allow
-    audible autoplay from a user gesture.
-
-    The iframe itself is audio-only: it is a 1x1, almost transparent
-    element. It must not be display:none or opacity:0 -- Chrome throttles
-    or suspends hidden frames, which pauses the audio. The button, the two
-    time readouts and the seek bar are all built here instead of using the
-    native YouTube controls, so the player matches the page.
-  -->
-  <div class="np" data-video-id="jmpUP1MaQ9Q"
-       data-video-url="https://www.youtube.com/watch?v=jmpUP1MaQ9Q">
+    <div class="np" data-video-id="jmpUP1MaQ9Q"
+         data-video-url="https://www.youtube.com/watch?v=jmpUP1MaQ9Q">
     <button class="np-btn" type="button" aria-label="Play O Rangrez" aria-pressed="false">
       <svg class="np-ico np-ico-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M8.2 5.1 19 12 8.2 18.9z"/>

@@ -203,6 +203,33 @@ main.page {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Quote just above the music player (bottom-left). Readable, small, frosted. */
+.np-quote {
+  position: fixed;
+  left: max(var(--edge), 2.2vw);
+  bottom: calc(clamp(16px, 3svh, 32px) + 56px + 10px);
+  max-width: min(360px, calc(100vw - 28px));
+  z-index: 400;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--hairline);
+  background: rgba(10, 10, 10, .72);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  font-size: 9.5px;
+  line-height: 1.65;
+  letter-spacing: .01em;
+  color: var(--ink-soft);
+  text-align: left;
+  white-space: normal;
+  pointer-events: none;
+  animation: quote-in 1.1s var(--ease-out-strong) 0.5s both;
+}
+@media (max-width: 640px) {
+  .np-quote { bottom: calc(clamp(14px, 3svh, 28px) + 52px + 8px); max-width: calc(100vw - 20px); font-size: 9px; }
+}
+
 .np-body { flex: 1 1 auto; min-width: 0; }
 
 .np-btn {
@@ -758,8 +785,61 @@ body.lb-open .sb-expand { cursor: default; }
 }
 
 /* Short or narrow viewports: the side arrows sit over the artwork, so
-   give them a real hit area and keep the close button clear of them. */
+   give them a real hit area and keep the close button clear of them.
+
+   The horizontal padding used to be a flat 46px, which on a 360px phone left
+   the artwork only 268px of a 360px screen -- the viewer looked broken
+   rather than small. Letting the sides collapse hands that space back to the
+   picture: clamp(10px, 3vw, 46px) gives ~338px of artwork at 360 wide, and
+   still reaches the old 46px once the screen is wide enough to want it. The
+   arrows are positioned against .lb rather than .lb-figure, so shrinking
+   this padding cannot collide with them. */
 @media (max-width: 640px) {
-  .lb-figure { padding: 52px 46px; max-width: 100vw; }
+  .lb-figure { padding: clamp(44px, 8vh, 52px) clamp(10px, 3vw, 46px); max-width: 100vw; }
   .lb-nav { padding: 20px 10px; }
+}
+
+/* --- touch adjustments ---------------------------------------------- */
+/* Measured across real device widths (360px Android through 430px iPhone
+   and both iPads): the layout never scrolled sideways at any of them. What
+   was wrong was target size, not structure.
+
+   Hit areas are widened with pseudo-elements rather than by growing the
+   controls themselves, because the hero is tuned to exactly one screen on
+   short viewports and a taller button would reintroduce a scrollbar. .lb-close
+   and .lb-nav are already absolutely positioned, so only .sb-expand needs a
+   containing block. */
+@media (pointer: coarse) {
+  /* Measured sizes on a 360px phone: play button 36px, viewer arrows 35px,
+     viewer close 39px. Each is padded out to a real 44px target. The close
+     button needs more than the others because it is a lone target in the
+     corner with no neighbour to forgive a near-miss. */
+  .np-btn { position: relative; }
+  .np-btn::before { content: ""; position: absolute; inset: -5px; border-radius: 50%; }
+
+  .sb-expand { position: relative; }
+  .sb-expand::before { content: ""; position: absolute; inset: -9px; border-radius: 50%; }
+
+  /* The viewer arrows and close button are sized for real here rather than
+     padded out with a pseudo-element. A negative horizontal inset would have
+     reached past the left edge of a 360px screen -- the arrows sit ~7px from
+     the edge -- and pushed the page into sideways scroll, which is the one
+     thing a phone must never do. min-width/min-height cannot do that. */
+  .lb-nav { min-width: 44px; min-height: 44px; }
+  .lb-prev { left: clamp(2px, 1.5vw, 26px); }
+  .lb-next { right: clamp(2px, 1.5vw, 26px); }
+  .lb-close { min-width: 44px; min-height: 44px; }
+
+  /* 5px is not a target. 7px is easier to see and still fits 25 across a
+     360px screen (25 x 13px = 325px). The hit area is inset by exactly half
+     the 6px gap on each side, so neighbouring targets tile without overlap
+     and a tap cannot land on the wrong poster. Arrows and swipe remain the
+     primary way to move; this just makes the dots usable. */
+  .sb-dots { gap: 6px; }
+  .sb-dot { position: relative; width: 7px; height: 7px; }
+  .sb-dot::before { content: ""; position: absolute; inset: -6px -3px; border-radius: 50%; }
+
+  /* 9.5px is not readable on a phone. */
+  .np-time { font-size: 11px; width: 34px; }
+  .np-artist { font-size: 11px; }
 }
