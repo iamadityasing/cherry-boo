@@ -207,7 +207,7 @@ main.page {
 .np-quote {
   position: fixed;
   left: max(var(--edge), 2.2vw);
-  bottom: calc(clamp(16px, 3svh, 32px) + 56px + 10px);
+  bottom: calc(clamp(16px, 3svh, 32px) + 62px + 10px);
   max-width: min(360px, calc(100vw - 28px));
   z-index: 400;
   margin: 0;
@@ -227,7 +227,7 @@ main.page {
   animation: quote-in 1.1s var(--ease-out-strong) 0.5s both;
 }
 @media (max-width: 640px) {
-  .np-quote { bottom: calc(clamp(14px, 3svh, 28px) + 52px + 8px); max-width: calc(100vw - 20px); font-size: 9px; }
+  .np-quote { bottom: calc(clamp(14px, 3svh, 28px) + 58px + 8px); max-width: calc(100vw - 20px); font-size: 9px; }
 }
 
 .np-body { flex: 1 1 auto; min-width: 0; }
